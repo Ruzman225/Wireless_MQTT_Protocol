@@ -1,0 +1,43 @@
+require('dotenv').config();
+
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(express.json());
+
+
+const mqtt = require('mqtt')
+const options = {
+    host: 'b8541613bef0490cbab81b168dca63c5.s1.eu.hivemq.cloud',
+    port: 8883,
+    protocol: 'mqtts',
+    username: 'Ruzman',
+    password: process.env.PASSWORD
+}
+
+//initialize the MQTT client
+const client = mqtt.connect(options);
+
+//setup the callbacks
+client.on('connect', function () {
+    console.log('Connected to MQTT');
+});
+
+app.post('/PublishMessage',(req,res,next) => {
+    client.publish('channel1', req.body.message, (err,cb) => {
+        if(err){
+            console.log(err);
+            res.json({success:0,message:"Error!"});
+            return next();
+        }else {
+            console.log(req.body.message)
+            res.json({success:1,message:"Success! Added Successfully"});
+            return next();
+        }
+    });
+});
+
+app.listen(process.env.PUB_PORT || 3000, (err) => {
+    console.log(`Server listening at POST ${process.env.PUB_PORT || 3000}`);
+});
