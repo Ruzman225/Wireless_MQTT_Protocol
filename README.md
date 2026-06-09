@@ -20,10 +20,3 @@ A lightweight, end-to-end IoT middleware solution designed to capture local HTTP
 3. **Broker:** `HiveMQ` routes the message securely via the `channel1` topic.
 4. **Subscribe:** The `Subscriber.js` server detects the incoming message.
 5. **Notify:** The Subscriber triggers the Twilio API, delivering the payload as an SMS and WhatsApp message to the registered mobile device.
-
-## ⚙️ Installation & Setup
-
-### 1. Clone the repository
-```bash
-git clone [https://github.com/YourUsername/Wireless-MQTT-Bridge.git](https://github.com/YourUsername/Wireless-MQTT-Bridge.git)
-cd Wireless-MQTT-Bridge
